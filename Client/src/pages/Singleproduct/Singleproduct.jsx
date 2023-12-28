@@ -54,16 +54,16 @@ const Singleproduct = () => {
             <CBreadcrumb title={product.title} type={product.type}/>
             <div className='continer-singleproduct'>
                 <div className='d-flex continer-img-singleproduct'>
-                    <img crossOrigin='anonymous' className='mainimg-singleproduct' src={`http://localhost:5000/${img}`} alt="" />
+                    <img crossOrigin='anonymous' className='mainimg-singleproduct' src={`https://tradition-nice-one-api.vercel.app/${img}`} alt="" />
                     <div className='continer-subimg-singleproduct'>
-                        <img crossOrigin='anonymous' className='subimg-singleproduct'onClick={()=>setimg(product.img1)} src={`http://localhost:5000/${product.img1}`} alt="" />
-                        <img crossOrigin='anonymous' className='subimg-singleproduct'onClick={()=>setimg(product.img2)} src={`http://localhost:5000/${product.img2}`} alt="" />
-                        <img crossOrigin='anonymous' className='subimg-singleproduct'onClick={()=>setimg(product.img3)} src={`http://localhost:5000/${product.img3}`} alt="" />
+                        <img crossOrigin='anonymous' className='subimg-singleproduct'onClick={()=>setimg(product.img1)} src={`https://tradition-nice-one-api.vercel.app/${product.img1}`} alt="" />
+                        <img crossOrigin='anonymous' className='subimg-singleproduct'onClick={()=>setimg(product.img2)} src={`https://tradition-nice-one-api.vercel.app/${product.img2}`} alt="" />
+                        <img crossOrigin='anonymous' className='subimg-singleproduct'onClick={()=>setimg(product.img3)} src={`https://tradition-nice-one-api.vercel.app/${product.img3}`} alt="" />
                     </div>
                 </div>
                 <div className='container-info-singleprodect '>
                     <div className='d-flex'>
-                        <img className='imgbrand-singleproduct' src={`http://localhost:5000/${product.imgbrind}`} alt="" />
+                        <img className='imgbrand-singleproduct' src={`https://tradition-nice-one-api.vercel.app/${product.imgbrind}`} alt="" />
                         <div>   
                             <p className='m-0 original-singleproduct'>{product.brandstatus}</p>
                             <p className='m-0'>{t('clickhereformoreof')} <Link to={`/${product.type}`} className='type-singleproduct'> {product.Type} </Link></p>
