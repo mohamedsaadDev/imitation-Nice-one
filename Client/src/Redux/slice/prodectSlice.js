@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 export const getProducts =createAsyncThunk('products/get',async()=>{
     try{
-    const res = await fetch('http://localhost:5000/api/products',{
+    const res = await fetch('https://tradition-nice-one-api.vercel.app/api/products',{
         method: 'GET',
     })
     const data = await res.json()
