@@ -6,7 +6,6 @@ const app = express()
 app.use(cors())
 const path = require('path')
 const helmet = require('helmet')
-app.use('/uploads',express.static(path.join(__dirname,'uploads')))
 app.use(helmet())
 //start connect database 
 const connectDB = require('./config/dbconn')
