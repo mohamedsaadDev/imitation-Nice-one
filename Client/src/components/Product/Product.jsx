@@ -12,7 +12,7 @@ const Product = ({data}) => {
         <div className='container-produect'>
             <Link to={`/product/${data._id}`}>
             <div className='position-relative'>
-                <img className='w-100' crossOrigin="anonymous" src={`https://tradition-nice-one-api.vercel.app/${data.img1}`} alt='' />
+                <img className='w-100' src={`https://tradition-nice-one-api.vercel.app/${data.img1}`} alt='' />
                 <span className='badg-productslide ornge'>{data.bestseller}</span>
                 <span className='badg-productslide'>{data.trending}</span>
                 <span className='badg-productslide'>{data.mostpopular}</span>
