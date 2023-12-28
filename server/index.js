@@ -25,6 +25,6 @@ app.use('/api/orders/',orderRouter)
 app.all('*',(req,res,next)=>{
     res.status(404).json({status: httpStatusText.ERROR,messag:'this resource is not a valid'})
 })
-app.listen(process.env.PORT, ()=>{
+app.listen(process.env.PORT||5000, ()=>{
     console.log(' server run listening on port 5000')
 })
