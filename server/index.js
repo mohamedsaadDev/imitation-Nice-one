@@ -12,7 +12,7 @@ const connectDB = require('./config/dbconn')
 connectDB()
 //end connect database
 //static file
-app.use(cors())
+app.use(cors({origin:"https://tradition-nice-one-client.vercel.app/"}))
 app.use(express.static(path.join(__dirname, "data")))
 app.use(express.json())
 const userRouter = require("./routes/userrout")
