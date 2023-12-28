@@ -54,11 +54,11 @@ const Singleproduct = () => {
             <CBreadcrumb title={product.title} type={product.type}/>
             <div className='continer-singleproduct'>
                 <div className='d-flex continer-img-singleproduct'>
-                    <img crossOrigin='anonymous' className='mainimg-singleproduct' src={`https://tradition-nice-one-api.vercel.app/${img}`} alt="" />
+                    <img className='mainimg-singleproduct' src={`https://tradition-nice-one-api.vercel.app/${img}`} alt="" />
                     <div className='continer-subimg-singleproduct'>
-                        <img crossOrigin='anonymous' className='subimg-singleproduct'onClick={()=>setimg(product.img1)} src={`https://tradition-nice-one-api.vercel.app/${product.img1}`} alt="" />
-                        <img crossOrigin='anonymous' className='subimg-singleproduct'onClick={()=>setimg(product.img2)} src={`https://tradition-nice-one-api.vercel.app/${product.img2}`} alt="" />
-                        <img crossOrigin='anonymous' className='subimg-singleproduct'onClick={()=>setimg(product.img3)} src={`https://tradition-nice-one-api.vercel.app/${product.img3}`} alt="" />
+                        <img className='subimg-singleproduct'onClick={()=>setimg(product.img1)} src={`https://tradition-nice-one-api.vercel.app/${product.img1}`} alt="" />
+                        <img className='subimg-singleproduct'onClick={()=>setimg(product.img2)} src={`https://tradition-nice-one-api.vercel.app/${product.img2}`} alt="" />
+                        <img className='subimg-singleproduct'onClick={()=>setimg(product.img3)} src={`https://tradition-nice-one-api.vercel.app/${product.img3}`} alt="" />
                     </div>
                 </div>
                 <div className='container-info-singleprodect '>
