@@ -3,7 +3,7 @@ import Cookie from "cookie-universal"
 const cookie = Cookie()
 export const registerUser =createAsyncThunk('user/register',async(formData)=>{
         try{
-        const res = await fetch('http://localhost:5000/api/users/register',{
+        const res = await fetch('https://tradition-nice-one-api.vercel.app/api/users/register',{
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(formData)
