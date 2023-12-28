@@ -36,7 +36,7 @@ const Cart = () => {
                     {
                         cartitems.map((item,index)=>
                         <div key={index} className='product-cart my-2'>
-                            <img className='img-product-cart' src={`https://tradition-nice-one-api.vercel.app/${item.img1}`} crossOrigin="anonymous" alt="" />
+                            <img className='img-product-cart' src={`https://tradition-nice-one-api.vercel.app/${item.img1}`} alt="" />
                             <div className='info-product-cart px-3'>
                                 <div className='d-flex justify-content-around  '>
                                     <h6>{item.title}</h6>
