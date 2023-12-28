@@ -5,13 +5,8 @@ const httpStatusText = require('./utils/httpStatusTexr')
 const app = express()
 const path = require('path')
 const helmet = require('helmet')
-app.use(helmet())
+//app.use(helmet())
 app.use(cors({origin:"https://tradition-nice-one-client.vercel.app"}))
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'https://tradition-nice-one-client.vercel.app');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  next();
-});
 //start connect database 
 const connectDB = require('./config/dbconn')
 connectDB()
