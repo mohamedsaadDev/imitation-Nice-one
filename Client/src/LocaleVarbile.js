@@ -1,1 +1,1 @@
-export const API_KEY = 'http://localhost:5000'
+export const API_KEY = 'https://tradition-nice-one-api.vercel.app/'
