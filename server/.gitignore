@@ -3,5 +3,10 @@
 /.pnp
 .pnp.js
 .env
+/package-lock.json
+/dist
+/.vscode
+/.idea
+.DS_Store
 # production
 /build
