@@ -54,7 +54,7 @@ function CNav({scrolled}) {
             <div className='w-100 d-flex justify-content-between'>
               <div className='container-mian-menu'>
               <Link to='/'><img className={scrolled?'logo-nav logo-nav-scroll':'logo-nav'} src={logoscroll} alt="" /></Link>
-                <Nav.Link className='nav-item-Categorie d-flex align-items-center underline-3'>
+                <Link className='nav-item-Categorie link-dark d-flex align-items-center underline-3'>
                   <i className="fa-solid fa-bars px-1"></i> {t('Categorie')}
                   <div className='wrapper-dropdown-nav'>
                         <ul className='dropdown-nav'>
@@ -69,11 +69,11 @@ function CNav({scrolled}) {
                         </ul>
                         <SubDropdown subDropdown={subDropdown}/>
                     </div>
-                </Nav.Link>
-                <Nav.Link className='underline-3'>{t('Makeup')}</Nav.Link>
-                <Nav.Link className='underline-3'>{t('Perfume')}</Nav.Link>
-                <Nav.Link className='underline-3'>{t('Care')}</Nav.Link>
-                <Nav.Link className='underline-3'>{t('Brands')}</Nav.Link>
+                </Link>
+                <Link to='makeup' className='underline-3'>{t('Makeup')}</Link>
+                <Link to='makeup' className='underline-3'>{t('Perfume')}</Link>
+                <Link to='care' className='underline-3'>{t('Care')}</Link>
+                <Link to='makeup' className='underline-3'>{t('Brands')}</Link>
               </div>
               <Search scrolled={scrolled}/>
               <ul className='m-0 p-0 d-flex align-items-center continer-nav-info'>
