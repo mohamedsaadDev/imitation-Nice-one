@@ -4,7 +4,9 @@ const cors = require('cors')
 const httpStatusText = require('./utils/httpStatusTexr')
 const app = express()
 const path = require('path')
-app.use(cors({origin:"https://tradition-nice-one-client.vercel.app"}))
+app.use(cors({origin:process.env.DOMAIN_CLIENT}))
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 //start connect database 
 const connectDB = require('./config/dbconn')
 connectDB()
@@ -22,5 +24,5 @@ app.all('*',(req,res,next)=>{
     res.status(404).json({status: httpStatusText.ERROR,messag:'this resource is not a valid'})
 })
 app.listen(process.env.PORT||5000, ()=>{
-    console.log(`server run listening on port ${process.env.PORT}`)
+    console.log(' server run listening on port 5000')
 })

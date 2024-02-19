@@ -2,7 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next';
 import "./aboutus.css"
 const AboutUs = () => {
-    const { t} = useTranslation();
+    const { t } = useTranslation();
     return (
         <section className='aboutus'>
             <div >

@@ -9,6 +9,7 @@ import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { cartaction } from '../../Redux/slice/cartSlice'
 import NotFound from '../NotFound/NotFound'
+import { API_KEY } from '../../LocaleVarbile'
 const Singleproduct = () => {
     const {t,i18n}= useTranslation()
     const {id} = useParams()
@@ -53,16 +54,16 @@ const Singleproduct = () => {
             <CBreadcrumb title={product.title} type={product.type}/>
             <div className='continer-singleproduct'>
                 <div className='d-flex continer-img-singleproduct'>
-                    <img className='mainimg-singleproduct' src={`https://tradition-nice-one-api.vercel.app/${img}`} alt="" />
+                    <img className='mainimg-singleproduct' src={`${API_KEY+img}`} alt="" />
                     <div className='continer-subimg-singleproduct'>
-                        <img className='subimg-singleproduct'onClick={()=>setimg(product.img1)} src={`https://tradition-nice-one-api.vercel.app/${product.img1}`} alt="" />
-                        <img className='subimg-singleproduct'onClick={()=>setimg(product.img2)} src={`https://tradition-nice-one-api.vercel.app/${product.img2}`} alt="" />
-                        <img className='subimg-singleproduct'onClick={()=>setimg(product.img3)} src={`https://tradition-nice-one-api.vercel.app/${product.img3}`} alt="" />
+                        <img className='subimg-singleproduct'onClick={()=>setimg(product.img1)} src={`${API_KEY+product.img1}`} alt="" />
+                        <img className='subimg-singleproduct'onClick={()=>setimg(product.img2)} src={`${API_KEY+product.img2}`} alt="" />
+                        <img className='subimg-singleproduct'onClick={()=>setimg(product.img3)} src={`${API_KEY+product.img3}`} alt="" />
                     </div>
                 </div>
                 <div className='container-info-singleprodect '>
                     <div className='d-flex'>
-                        <img className='imgbrand-singleproduct' src={`https://tradition-nice-one-api.vercel.app/${product.imgbrind}`} alt="" />
+                        <img className='imgbrand-singleproduct' src={`${API_KEY+product.imgbrind}`} alt="" />
                         <div>   
                             <p className='m-0 original-singleproduct'>{product.brandstatus}</p>
                             <p className='m-0'>{t('clickhereformoreof')} <Link to={`/${product.type}`} className='type-singleproduct'> {product.Type} </Link></p>

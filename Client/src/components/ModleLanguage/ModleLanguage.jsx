@@ -9,7 +9,6 @@ const ModleLanguage = () => {
     const handleCheckboxChange = (e) => {
         setIsChecked(e.target.value);
     }
-    console.log(isChecked)
     const html = document.querySelector('html')
     const  handlelangar= () =>{
             html.dir = "rtl"

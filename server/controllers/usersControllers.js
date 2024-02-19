@@ -4,12 +4,12 @@ const httpStatusText = require('../utils/httpStatusTexr')
 const  bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const getAllusers = async (req,res)=>{
-    console.log(req.headers)
+    //console.log(req.headers)
     const query = req.query
-    const limit = query.limit || 10
+    const limit = query.limit || 25
     const page = query.page || 1
     const skip = (page- 1) * limit;
-    const users = await User.find({},{"__v":false,"password":false}).limit(limit).skip(skip)
+    const users = await User.find({},{"__v":false,"password":false,"token":false}).limit(limit).skip(skip)
     res.status(200).json({status: httpStatusText.SUCCESS,data:{users}})
 }
 const deletUser = async (req, res) => {
@@ -19,10 +19,23 @@ const deletUser = async (req, res) => {
     res.status(200).json({status:httpStatusText.SUCCESS,data: deletuser})
 }
 const register =async (req,res)=>{
-    const {firstName,LastName,email,password, role} = req.body
+    const {firstName,LastName,email,password, role,} = req.body
     const olduser= await User.findOne({email:email})
+    if (!firstName || !LastName || !email || !password || !role) {
+        return res.status(400).json({ status: httpStatusText.ERROR, message: "Please provide all required fields" });
+    }
     if(olduser){
-        return res.status(400).json({status:httpStatusText.ERROR,mesage:"user is already exists"})
+        return res.status(400).json({status:httpStatusText.ERROR,mesage:"User with this email already exists"})
+    }
+    try{
+        const hashpassword = await bcrypt.hash(password,10)
+        const newUser = new User({firstName, LastName, email,password: hashpassword,role})
+        const token = await generateJWT({ email: newUser.email,id:newUser._id, role:newUser.role})
+        newUser.token = token
+        await newUser.save()
+    }catch(error){
+    console.error("Error saving user:", error);
+    return res.status(500).json({ status: httpStatusText.ERROR, message: "Internal Server Error" });
     }
     const hashpassword = await bcrypt.hash(password,10)
     const newUser = new User({
@@ -51,14 +64,15 @@ const login = async (req,res)=>{
     const matchedpassword = await bcrypt.compare(password,user.password)
     if(user && matchedpassword){
         const token = await generateJWT({ email: user.email,id:user._id,role:user.role })
-        return res.status(200).json({status: httpStatusText.SUCCESS,data:{token,email,id:user._id}})
+        return res.status(200).json({status: httpStatusText.SUCCESS,
+            data:{token,email,id:user._id,role:user.role,registrationTime:user.registrationTime}})
     }else {
         return res.status(500).json({status: httpStatusText.ERROR, mesage:"something wrong"})
     }
 }
 module.exports ={
     getAllusers, 
-    register,
+    register,   
     login,
     deletUser,
 }

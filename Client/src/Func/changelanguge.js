@@ -1,5 +1,5 @@
 
-export function changelanguge (products,i18n){
+export const changelanguge = (products,i18n) => {
     const proudctsmodification = products.map(product =>
         i18n.language ==="en"? product:
         {

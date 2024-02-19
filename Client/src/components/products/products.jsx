@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import Product from '../Product/Product'
 import CBreadcrumb from '../Breadcrumb/Breadcrumb'
 import Sidebar from '../Sidebar/Sidebar'
@@ -10,7 +10,7 @@ import { changelanguge } from '../../Func/changelanguge'
 const Products = ({type}) => {
     const {i18n} = useTranslation()
     const {products}=useSelector((state)=>state.products)
-    const productType = changelanguge(products.filter(product => product.type === type),i18n)
+    const productType =useMemo(()=>{return changelanguge(products.filter(product => product.type === type),i18n)},[i18n.language])
     const [prodectfilter,setprodectfilter] =useState([])
     return (
         <>

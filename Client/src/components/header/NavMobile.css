@@ -21,6 +21,7 @@
     -webkit-align-items: center;
     padding: 11px 15px;
     position: relative;
+    cursor: pointer;
 }
 .item-menu-mobile::before{
     position: absolute;
@@ -32,7 +33,6 @@
     right: 44px;
     left: 44px;
 }
-
 .continer-sub-mobile{
     font-size: 13px;
     color: #000;

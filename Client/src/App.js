@@ -8,6 +8,7 @@ import Cart from './pages/Cart/Cart';
 import Login from './pages/Login/Login';
 import { getProducts } from './Redux/slice/prodectSlice';
 import { useDispatch } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
 const Headerlazy = React.lazy(()=>import('./components/header/Header'))
 const Mainlazy = React.lazy(()=>import('./pages/main/Main'))
 const Footerlazy = React.lazy(()=>import('./components/Footer/Footer'))
@@ -19,6 +20,7 @@ const App = () => {
   return (
     <>
     <BrowserRouter>
+    <ToastContainer/>
     <React.Suspense>
     <Headerlazy/>
     </React.Suspense>

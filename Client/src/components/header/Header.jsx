@@ -1,11 +1,11 @@
 import React,{useState,useEffect} from 'react'
 import logo from "../../assets/header/logo.svg"
 import imgExperience from "../../assets/header/285b093.svg"
-import "./Header.css"
 import CNav from './Nav'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux'
+import "./Header.css"
 const Header = ()=> {
     const { t, i18n } = useTranslation();
     const [scrolled, setScrolled] = useState(false);

@@ -88,5 +88,13 @@
     "passwordisRequired":"password is Required",
     "Thenameisshort":"The name is short",
     "Thenameislong":"The name is long!",
-    "Required":"Required"
+    "Required":"Required",
+    "LoginSuccessful":"Login Successful",
+    "loginfailed":"Email or password is incorrect",
+    "registrationSuccessful":"Registration Successful",
+    "registrationfailed":"email or password is not valid",
+    "failedtosendorder":"Failed Send Order",
+    "successfulorder":"Successful Send Order",
+    "logoutSuccessful":"Logout Successful",
+    "dir":"left"
 }

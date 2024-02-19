@@ -5,6 +5,8 @@ import { Button } from 'react-bootstrap'
 import WithGuard from '../../util/WithGuard';
 import { useSelector,useDispatch } from 'react-redux';
 import { cartaction } from '../../Redux/slice/cartSlice'
+import { API_KEY } from '../../LocaleVarbile';
+import { toast } from 'react-toastify';
 const Order = () => {
     const { cartitems} = useSelector((state) => state.cart);
     const { t } = useTranslation();
@@ -26,14 +28,18 @@ const Order = () => {
     }
     const sendOrder =async()=>{
         try{
-        const res = await fetch('https://tradition-nice-one-api.vercel.app/api/orders/',{
+        const res = await fetch(`${API_KEY||"http://localhost:5000"}/api/orders`,{
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(order)
         })
+        if (!res.ok) {
+            toast.error(t('failedtosendorder'), { position: `top-${t('dir')}`});
+            throw new Error(`Failed to send order. Status: ${res.status}`);
+        }
             const data = await res.json()
             handleSendOrder()
-            console.log(data)
+            toast.success(t('successfulorder'), { position: `top-${t('dir')}`});
         }catch(err){
             console.log(err)
         }
@@ -53,7 +59,7 @@ const Order = () => {
                         cartitems.length ===0 ? <p className='text-period-orders'>{t('Noitems')}</p>:
                         cartitems.map((item)=>
                         <div key={item._id} className='d-flex py-2 container-info'>
-                            <img crossOrigin='anonymous' className='img-order' src={`https://tradition-nice-one-api.vercel.app${item.img1}`} alt="" />
+                            <img className='img-order' src={`${API_KEY+item.img1}`} alt="" />
                             <div className='px-2' >
                                 <p className='m-0 titleproduct-order'>{item.title}</p>
                                 <span className='m-0' >{t('Quantity')} {item.quantity}</span>

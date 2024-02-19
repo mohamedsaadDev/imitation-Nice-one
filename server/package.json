@@ -1,11 +1,14 @@
 {
-  "name": "crud-app",
+  "name": "nice-one",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": " nodemon index.js"
+  },
+  "engines":{
+    "node":"18.x"
   },
   "keywords": [],
   "author": "",

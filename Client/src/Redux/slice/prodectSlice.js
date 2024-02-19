@@ -1,8 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { products } from "../../data/data";
+import { API_KEY } from "../../LocaleVarbile";
 export const getProducts =createAsyncThunk('products/get',async()=>{
     try{
-
-    const res = await fetch('https://tradition-nice-one-api.vercel.app/api/products',{
+    const res = await fetch(`${API_KEY || 'http://localhost:5000'}/api/products`,{
         method: 'GET',
     })
     const data = await res.json()
@@ -14,7 +15,7 @@ export const getProducts =createAsyncThunk('products/get',async()=>{
 export const productsSlice = createSlice({
     name: "products",
     initialState: {
-        products:[],
+        products:products,
         loading: false,
         error: false,
     },

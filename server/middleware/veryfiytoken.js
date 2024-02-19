@@ -2,7 +2,6 @@ const jwt = require("jsonwebtoken");
 const httpStatusText = require('../utils/httpStatusTexr')
 const veryfiytoken = (req,res,next)=>{
     const authHeader = req.headers['Authorization'] || req.headers['authorization']
-    console.log(authHeader)
     if(!authHeader){
         res.status(401).json({message:'token is required', stutus:httpStatusText.ERROR}) 
     }
@@ -16,4 +15,4 @@ const veryfiytoken = (req,res,next)=>{
     }
     next()
 }
-module.exports=veryfiytoken
+module.exports= veryfiytoken

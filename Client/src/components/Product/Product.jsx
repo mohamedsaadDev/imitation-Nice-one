@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next';
 import { useDispatch} from 'react-redux';
 import { cartaction } from '../../Redux/slice/cartSlice'
+import { API_KEY } from '../../LocaleVarbile';
 const Product = ({data}) => {
     const dispatch = useDispatch()
     const { t } = useTranslation();
@@ -12,8 +13,8 @@ const Product = ({data}) => {
         <div className='container-produect'>
             <Link to={`/product/${data._id}`}>
             <div className='position-relative'>
-                <img className='w-100' src={`https://tradition-nice-one-api.vercel.app${data.img1}`} alt='' />
-                <span className='badg-productslide ornge'>{data.bestseller}</span>
+                <img className='w-100' src={`${API_KEY+data.img1}`} alt='' />
+                <span className='badg-productslide'>{data.bestseller}</span>
                 <span className='badg-productslide'>{data.trending}</span>
                 <span className='badg-productslide'>{data.mostpopular}</span>
                 <span className='badg-new-productslide'>{data.new}</span>
@@ -23,7 +24,7 @@ const Product = ({data}) => {
                 <h4 className='title-product'>{data.title}</h4>
                 <p className='reating-product mb-0'>
                     {data.reating}<i className="fa-solid fa-star"></i> 
-                    <span>( {data.reviews} )</span>
+                    <span>( {data.reating} )</span>
                 </p>
                 <del>{t('SAR')} {data.oldprice}</del>   
                 <div className='price-product d-flex'>

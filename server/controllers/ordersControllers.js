@@ -27,9 +27,14 @@ const deleteOrder = async (req, res) => {
     const orderId = req.params.orderId;
     try {
         const deletedOrder = await Order.deleteOne({ _id: orderId });
-        res.status(200).json({ status: httpStatusText.SUCCESS, data: null });
+        if (deletedOrder.deletedCount === 1) {
+            res.status(200).json({ status: httpStatusText.SUCCESS, data: null });
+        } else {
+            res.status(404).json({ error: 'Order not found' });
+        }
     } catch (err) {
-        res.status(500).json({ error: 'Error deleting order' });
+        console.error('Error deleting order:', err);
+        res.status(500).json({ error: 'Error deleting order', details: err.message });
     }
 };
 module.exports ={ 

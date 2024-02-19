@@ -1,15 +1,20 @@
 import React from 'react';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import Registers from '../Register/Register.jsx';
-import { useDispatch} from 'react-redux';
-import {loginUser } from '../../Redux/slice/authSlice.js';
 import { useTranslation } from 'react-i18next';
 import "./Login.css"
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import {useNavigate} from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Cookie from "cookie-universal"
+import { API_KEY } from '../../LocaleVarbile.js';
+import { toast } from 'react-toastify';
+const cookie = Cookie()
 const Login = ({switchform}) => {
     const { t, i18n } = useTranslation();
+    const navigate = useNavigate();
     const loginSchema =Yup.object().shape({
         email: Yup
         .string()
@@ -23,24 +28,40 @@ const Login = ({switchform}) => {
         .max(25, t('Thepasswordislong'))
         .required(t('passwordisRequired')),
     });
-    const dispatch = useDispatch()
-    const navigate = useNavigate();
     const formik = useFormik({
         initialValues:{
             email: '',
             password: ''
         },
         validationSchema:loginSchema,
-        onSubmit:(values) => {
+        onSubmit: async(values) => {
             try{
-                dispatch(loginUser(values));
-                navigate('/')
+                const res = await fetch(`${API_KEY||"http://localhost:5000"}/api/users/login`,{
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(values)
+                })
+                if (!res.ok) {
+                    toast.error(t('loginfailed'), { position:`top-${t('dir')}` });
+                    throw new Error('Failed to login')
+                }
+                const data = await res.json()
+                const tokenhash = btoa(data.data.token)
+                cookie.set('cookie-user', tokenhash)
+                localStorage.setItem("isLoggedIn", true);
+                localStorage.setItem("userid",data.data.id);
+                toast.success(t('LoginSuccessful'), { position:`top-${t('dir')}`});
+                setTimeout(() => {
+                    navigate('/')
+                }, 1000);
             }catch(err){
-                console.log(err);
+                console.log('error login',err);
             }
         }
     })
     return (
+        <>
+        <ToastContainer/>
         <Offcanvas className="offcanvas-form" key={i18n.language ==="en"?"end":"start"} placement={i18n.language ==="en"?"end":"start"} show={true} onHide={()=>navigate('/')}>
             <Offcanvas.Header onClick={()=>navigate('/')} closeButton>
             </Offcanvas.Header>
@@ -91,6 +112,7 @@ const Login = ({switchform}) => {
                 }
             </Offcanvas.Body>
         </Offcanvas>
+        </>
     )
 }
 export default React.memo(Login)

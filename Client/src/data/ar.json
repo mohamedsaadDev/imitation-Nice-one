@@ -88,5 +88,13 @@
     "passwordisRequired":"كلمة المرور مطلوبه",
     "Thenameisshort":"الاسم قصير",
     "Thenameislong":"الاسم طويل !",
-    "Required":"مطلوب"
+    "Required":"مطلوب",
+    "LoginSuccessful":" تم تسجيل الدخول بنجاح ",
+    "loginfailed":" البريد الالكتروني او كلمة المرور غير صحيحة",
+    "registrationSuccessful":" تم التسجيل بنجاح ",
+    "registrationfailed":"البريد الإلكتروني أو كلمة المرور غير صالحة",
+    "failedtosendorder":"فشل إرسال الطلب",
+    "successfulorder":"تم إرسال الطلب بنجاح",
+    "logoutSuccessful":"تم تسجيل الخروج بنجاح",
+    "dir":"right"
 }

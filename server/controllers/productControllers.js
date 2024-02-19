@@ -20,15 +20,26 @@ const getprodect = async (req, res)=>{
     }
 }
 const addprodect = async (req, res)=>{
-    
-    const newProdect = new Prodect(req.body)
+    const { imgbrand, img1, img2, img3 } = req.files
+    const productPreparation = {
+        ...req.body,
+        imgbrand: imgbrand[0].originalname,
+        img1:img1[0].originalname,
+        img2:img2[0].originalname,
+        img3:img3[0].originalname,
+    }
+    console.log(productPreparation)
+    const newProdect = new Prodect(productPreparation)
+    const newprodectss = req.body
     if(!req.body.title ){
+        console.log('title is none',req.body )
         return res.status(404).json({status:httpStatusText.FAIL, msg:"title is required"})
     }
     if (!req.body.price){
     res.status(404).json({message:"price is required"})
     }
-    await newCourse.save()
+    await newProdect.save()
+    console.log('new product is save',newProdect)
     res.status(201).json({status:httpStatusText.SUCCESS,data:{newProdect}})
 }
 const updetprodect = async (req, res)=>{
@@ -43,7 +54,7 @@ const updetprodect = async (req, res)=>{
 const deletprodect = async (req, res)=>{
     const prodectId = req.params.ProdectId
     const deletprodect = await Prodect.deleteOne({_id: prodectId})
-    res.status(200).json({status:httpStatusText.SUCCESS,data: null})
+    res.status(200).json({status:httpStatusText.SUCCESS,data: deletprodect})
 }
 module.exports ={ 
     getAllprodects,

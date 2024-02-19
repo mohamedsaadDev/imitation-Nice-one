@@ -1,10 +1,12 @@
 import { useTranslation } from 'react-i18next';
-import { registerUser } from '../../Redux/slice/registerSlice';
-import { useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import { API_KEY } from '../../LocaleVarbile';
+import Cookie from "cookie-universal"
 const Registers = ()=> {
+  const cookie = Cookie()
   const { t } = useTranslation();
   const registersSchema =Yup.object().shape({
     firstName: Yup
@@ -28,7 +30,6 @@ const Registers = ()=> {
         .max(25, t('Thepasswordislong'))
         .required(t('passwordisRequired')),
   });
-  const dispatch = useDispatch()
   const navigate = useNavigate()
         const formik = useFormik({
           initialValues:{
@@ -38,16 +39,33 @@ const Registers = ()=> {
             password: ''
           },
           validationSchema:registersSchema,
-          onSubmit:(values) => {
+          onSubmit:async(values) => {
             try{
-              dispatch(registerUser(values));
+              const res = await fetch(`${API_KEY || "http://localhost:5000"}/api/users/register`,{
+              method: 'POST',
+              headers: {'Content-Type': 'application/json'},
+              body: JSON.stringify(values)
+            })
+            const data = await res.json()
+            if (!res.ok) {
+              toast.error(t('registrationfailed'),{ position: `top-${t('dir')}`})
+              throw new Error(data);
+            }
+            toast.success(t('registrationSuccessful'),{ position: `top-${t('dir')}`})
+            const tokenhash = btoa(data.data.token)
+            cookie.set('cookie-user', tokenhash)
+            setTimeout(() => {
               navigate('/')
-          }catch(err){
-              console.log(err);
-          }
+            }, 1000);
+            }catch(err){
+              console.log('error register ',err)
+            }
+            
           }
         })
     return (
+        <>
+        <ToastContainer/>
         <div>
           <h5 className='address-Registers'>{t('Createandaccount')}</h5>
           <form className='continer-form-Registers' onSubmit={formik.handleSubmit}>
@@ -120,6 +138,7 @@ const Registers = ()=> {
             <button type="submit" className="btn btn-submitform">{t('Register')} </button>
           </form>
         </div>
+        </>
     )
 }
 export default Registers
