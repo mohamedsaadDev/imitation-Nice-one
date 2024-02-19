@@ -70,10 +70,10 @@ function CNav({scrolled}) {
                         <SubDropdown subDropdown={subDropdown}/>
                     </div>
                 </Link>
-                <Link to='makeup' className='underline-3'>{t('Makeup')}</Link>
-                <Link to='makeup' className='underline-3'>{t('Perfume')}</Link>
-                <Link to='care' className='underline-3'>{t('Care')}</Link>
-                <Link to='makeup' className='underline-3'>{t('Brands')}</Link>
+                <Link to='makeup' className='underline-3 p-2 link-dark'>{t('Makeup')}</Link>
+                <Link to='makeup' className='underline-3 p-2 link-dark'>{t('Perfume')}</Link>
+                <Link to='care' className='underline-3 p-2 link-dark'>{t('Care')}</Link>
+                <Link to='makeup' className='underline-3 p-2 link-dark'>{t('Brands')}</Link>
               </div>
               <Search scrolled={scrolled}/>
               <ul className='m-0 p-0 d-flex align-items-center continer-nav-info'>
