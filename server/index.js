@@ -4,7 +4,11 @@ const cors = require('cors')
 const httpStatusText = require('./utils/httpStatusTexr')
 const app = express()
 const path = require('path')
-app.use(cors({origin:process.env.DOMAIN_CLIENT}))
+const allowedOrigins = [
+    process.env.DOMAIN_CLIENT,
+    process.env.DASHBORD,
+    ];
+app.use(cors({origin:allowedOrigins}))
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 //start connect database 
