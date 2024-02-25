@@ -54,6 +54,8 @@ const Registers = ()=> {
             toast.success(t('registrationSuccessful'),{ position: `top-${t('dir')}`})
             const tokenhash = btoa(data.data.token)
             cookie.set('cookie-user', tokenhash)
+            localStorage.setItem("isLoggedIn", true);
+            localStorage.setItem("userid", data.data._id);
             setTimeout(() => {
               navigate('/')
             }, 1000);
