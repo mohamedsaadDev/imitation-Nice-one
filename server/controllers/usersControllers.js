@@ -18,40 +18,32 @@ const deletUser = async (req, res) => {
     const deletuser = await User.deleteOne({_id: userId})
     res.status(200).json({status:httpStatusText.SUCCESS,data: deletuser})
 }
-const register =async (req,res)=>{
-    const {firstName,LastName,email,password, role,} = req.body
-    const olduser= await User.findOne({email:email})
-    if (!firstName || !LastName || !email || !password || !role) {
-        return res.status(400).json({ status: httpStatusText.ERROR, message: "Please provide all required fields" });
+const register = async (req, res) => {
+    try {
+        const { firstName, LastName, email, password } = req.body;
+        if (!firstName || !LastName || !email || !password) {
+            return res.status(400).json({ status: httpStatusText.ERROR, message: "Please provide all required fields" });
+        }
+        const existingUser = await User.findOne({ email: email });
+        if (existingUser) {
+            return res.status(403).json({ status: httpStatusText.ERROR, message: "User with this email already exists" });
+        }
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const newUser = new User({
+            firstName,
+            LastName,
+            email,
+            password: hashedPassword,
+        });
+        const token = await generateJWT({ email: newUser.email, id: newUser._id });
+        newUser.token = token;
+        await newUser.save();
+        res.status(200).json({ status: httpStatusText.SUCCESS, data: newUser });
+    } catch (error) {
+        console.error("Error saving user:", error);
+        return res.status(500).json({ status: httpStatusText.ERROR, message: "Internal Server Error" });
     }
-    if(olduser){
-        return res.status(400).json({status:httpStatusText.ERROR,mesage:"User with this email already exists"})
-    }
-    try{
-        const hashpassword = await bcrypt.hash(password,10)
-        const newUser = new User({firstName, LastName, email,password: hashpassword,role})
-        const token = await generateJWT({ email: newUser.email,id:newUser._id, role:newUser.role})
-        newUser.token = token
-        await newUser.save()
-    }catch(error){
-    console.error("Error saving user:", error);
-    return res.status(500).json({ status: httpStatusText.ERROR, message: "Internal Server Error" });
-    }
-    const hashpassword = await bcrypt.hash(password,10)
-    const newUser = new User({
-        firstName,
-        LastName,
-        email,
-        password: hashpassword,
-        role
-    })
-    //generate jwt token
-    const token = await generateJWT({ email: newUser.email,id:newUser._id, role:newUser.role})
-    //const token = await jwt.sign({ email: newUser.email,id:newUser._id },process.env.JWT_SECRET_KEY,{expiresIn:'10m'});
-    newUser.token = token
-    await newUser.save()
-    res.status(200).json({status:httpStatusText.SUCCESS,data:newUser})
-}
+};
 const login = async (req,res)=>{
     const {email, password} = req.body
     if(!email && !password){
