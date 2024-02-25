@@ -1,5 +1,6 @@
 const userRoles = {
     ADMIN:"ADMIN",
-    MANGER:"MANGER"
+    MANGER:"MANGER",
+    USER:"USER",    
 }
 module.exports = userRoles
